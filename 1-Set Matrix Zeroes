@@ -1,0 +1,20 @@
+ void setZeroes(vector<vector<int>>& matrix) {
+        set<int> row_index;
+        set<int> col_index;
+        int m=matrix.size(), n= matrix[0].size();
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(matrix[i][j]==0){
+                    row_index.insert(i);
+                    col_index.insert(j);
+                }
+            }
+        }
+
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(row_index.find(i)!=row_index.end() || col_index.find(j)!=col_index.end())
+                    matrix[i][j]=0;
+            }
+        }
+    }
