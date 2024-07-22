@@ -1,0 +1,41 @@
+#include<iostream>
+#include<stack>
+using namespace std;
+
+int calcMaxArea(int arr[],int col){
+  stack<int> st;
+  int ma=INT_MIN;
+  for(int i=0;i<=col;i++){
+    while(!st.empty() && (i==col || arr[st.top()]>=arr[i])){
+      int ht= arr[st.top()];
+      st.pop();
+      int width = i-(st.empty() ? 0: (st.top()+1));
+      //cout<<ht<<"-"<<width<<endl;
+      ma=max(ma,ht*width);
+    }
+    st.push(i);
+  }
+  return ma;
+}
+
+int main(){
+  int row=4;
+  const int col=4;
+  int A[][col]= {
+        { 0, 1, 1, 0 },
+        { 1, 1, 1, 1 },
+        { 1, 1, 1, 1 },
+        { 1, 1, 0, 0 },
+  };
+
+  int max_area=calcMaxArea(A[0],col);
+  for(int i=1;i<row;i++){
+    for(int j=0;j<col;j++){
+      if(A[i][j]!=0){
+        A[i][j]+=A[i-1][j];
+      }
+    }
+    max_area=max(max_area,calcMaxArea(A[i],col));
+  }
+  cout<<"Max Area: "<<max_area<<endl;
+}
