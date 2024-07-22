@@ -1,0 +1,24 @@
+https://leetcode.com/submissions/detail/1329348301/
+
+void generate(int n, int to_open, int to_close,string res, vector<string>& ans){
+  if(to_open==0 && to_close==0){
+      ans.push_back(res);
+      return;
+  }
+  if(to_open>0){
+      res.push_back('(');
+      generate(n,to_open-1,to_close,res,ans);
+      res.pop_back();
+  }
+  if(to_close>to_open){
+      res.push_back(')');
+      generate(n,to_open,to_close-1,res,ans);
+      res.pop_back();
+  }
+  return;
+}
+vector<string> generateParenthesis(int n) {
+  vector<string> ans;
+  generate(n, n,n, "",ans);
+  return ans;
+}
