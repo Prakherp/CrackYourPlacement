@@ -1,0 +1,17 @@
+https://leetcode.com/submissions/detail/1329328016/
+
+
+void moveZeroes(vector<int>& nums) {
+        int zero_index=-1, n=nums.size();
+        int pos=0;
+        while(pos<n && nums[pos]!=0)
+            pos++;
+        zero_index=pos;
+        for(;pos<n;pos++){
+            if(nums[pos]!=0 && zero_index<n){
+                swap(nums[pos],nums[zero_index]);
+                while(zero_index<n && nums[zero_index]!=0)
+                    zero_index++;
+            }
+        }
+    }
