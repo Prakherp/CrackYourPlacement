@@ -1,0 +1,31 @@
+https://leetcode.com/submissions/detail/1331058372/
+
+string simplifyPath(string s) {
+    int n= s.length();
+    stack<string> st;
+    for(int i=0;i<n;i++){
+        if(s[i]=='/'){
+            int j=i+1;
+            while(s[j]=='/')
+                j++;
+            string temp="";
+            while(j<n && s[j]!='/'){
+                temp.push_back(s[j]);
+                j++;
+            }
+            if(temp==".."){
+                if(!st.empty()) st.pop();
+            }
+            else if(temp!="" && temp!="."){
+                st.push(temp);
+            }
+            i=j-1;
+        }
+    }
+    string res="";
+    while(!st.empty()){
+        res="/"+st.top()+res;
+        st.pop();
+    }
+    return res==""? "/":res;
+}
