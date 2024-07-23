@@ -1,0 +1,32 @@
+https://leetcode.com/submissions/detail/1331083885/
+
+string addBinary(string a, string b) {
+    int l1=a.length(),l2=b.length();
+    int x=max(l1,l2), carry=0;
+    string res="";
+    for(int i=0;i<x;i++){
+        char a1=l1-1-i>=0 ? a[l1-1-i] : '0';
+        char b1=l2-1-i>=0 ? b[l2-1-i]: '0';
+        if(a1=='0' && b1=='0'){
+            res=(carry ?"1":"0")+res;
+            carry=0;
+        }
+        else if((a1=='0' && b1=='1') || (a1=='1' && b1=='0')){
+            res=(carry ? "0":"1")+res;
+            carry=carry? 1:0;
+        }
+        else{
+            res=(carry ? "1":"0")+res;
+            carry=1;
+        }
+    }
+    if(carry)
+        res="1"+res;
+    
+    int pos=0;
+    while(pos<res.length() && res[pos]=='0')
+        pos++;
+    
+    res=res.substr(pos);
+    return res==""? "0":res;
+}
