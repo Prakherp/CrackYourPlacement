@@ -1,0 +1,12 @@
+https://leetcode.com/submissions/detail/1330578818/
+
+int maxProfit(vector<int>& prices) {
+        int n=prices.size();
+        int min_price=prices[0],res=INT_MIN;
+
+        for(int i=0;i<n;i++){
+            res=max(res,prices[i]-min_price);
+            min_price=min(min_price,prices[i]);
+        }
+        return res;
+    }
