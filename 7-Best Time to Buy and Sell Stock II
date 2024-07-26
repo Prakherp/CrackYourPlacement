@@ -1,0 +1,18 @@
+https://leetcode.com/submissions/detail/1333785161/
+
+int maxProfit(vector<int>& prices) {
+    stack<int> st;
+    int n=prices.size(),res=0;
+    for(int i=n-1;i>=0;i--){
+        while(!st.empty() && st.top()<=prices[i])
+            st.pop();
+        
+        if(!st.empty()){
+            res+=(st.top()-prices[i]);
+            st.pop();
+        }
+        
+        st.push(prices[i]);
+    }
+    return res;
+}
