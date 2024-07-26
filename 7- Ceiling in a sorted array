@@ -1,0 +1,32 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+
+int main(){
+  int n;
+  cout<<"Enter the number of elements:"<<endl;
+  cin>>n;
+  vector<int> arr(n,0);
+  for(int i=0;i<n;i++){
+    cin>>arr[i];
+  }
+
+  int target;
+
+  cout<<"Enter target:"<<endl;
+  cin>>target;
+
+  int l=0, r=n-1;
+  while(l<=r){
+    int mid = (l+r)/2;
+    if(arr[mid]<target){
+      l=mid+1;
+    }
+    else{
+      r=mid-1;
+    }
+  }
+  cout<<"Result: "<<arr[r+1]<<endl;
+}
+
+//1 2 8 10 10 12 19
