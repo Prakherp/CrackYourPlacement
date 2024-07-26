@@ -1,0 +1,50 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+
+int main(){
+  int n;
+  cout<<"Enter the number of elements:"<<endl;
+  cin>>n;
+
+  cout<<"Enter elements:"<<endl;
+  vector<int> arr(n,0);
+  int m=INT_MIN;
+  for(int i=0;i<n;i++){
+    cin>>arr[i];
+    m=max(m,arr[i]);
+  }
+  
+  int digits=0;
+  while(m){
+    digits++;
+    m/=10;
+  }
+
+  for(int i=0;i<digits;i++){
+    int p=pow(10,i);
+
+    vector<int> cnt(10,0);
+    for(int j=0;j<n;j++){
+      cnt[(arr[j]/p)%10]++;
+    }
+
+    for(int j=1;j<10;j++){
+      cnt[j]+=cnt[j-1];
+    }
+    vector<int> res(n);
+    for(int j=n-1;j>=0;j--){
+      res[cnt[(arr[j]/p)%10]-1]=arr[j];
+      cnt[(arr[j]/p)%10]--;
+    }
+
+    for(int j=0;j<n;j++)
+      arr[j]=res[j];
+  }
+
+  for(int i=0;i<n;i++)
+    cout<<arr[i]<<" ";
+  cout<<endl;
+}
+
+//170 45 75 90 802 24 2 66
