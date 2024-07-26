@@ -1,0 +1,21 @@
+https://leetcode.com/submissions/detail/1334095801/
+
+string reverseWords(string s) {
+    int n=s.length();
+    int c=0;
+    string res="";
+    for(int i=n-1;i>=0;i--){
+        if(s[i]==' '){
+            c=0;
+        }
+        else{
+            c++;
+            if(i==0 || s[i-1]==' '){
+                if(res!="")
+                    res+=" ";
+                res+=(s.substr(i,c));
+            }
+        }
+    }
+    return res;
+}
