@@ -1,0 +1,15 @@
+https://leetcode.com/submissions/detail/1335383625/
+
+string longestCommonPrefix(vector<string>& strs) {
+        string res=strs[0];
+        int n=strs.size();
+        for(int i=1;i<n;i++){
+            int c=0;
+            int len=min(strs[i].length(), res.length());
+            while(c<len && strs[i][c]==res[c])
+                c++;
+            
+            res=res.substr(0,c);
+        }
+        return res;
+    }
