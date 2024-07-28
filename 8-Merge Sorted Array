@@ -1,0 +1,31 @@
+ void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+        int gap=(m+n)/2 + (m+n)%2;
+
+        while(gap){
+            for(int i=0;(i+gap)<(m+n);i++){
+                int j=i+gap;
+
+                if(i<m){
+                    if(j<m){
+                        if(nums1[i]>nums1[j])
+                            swap(nums1[i], nums1[j]);
+                    }
+                    else{
+                        if(nums1[i]>nums2[j-m])
+                            swap(nums1[i],nums2[j-m]);
+                    }
+                }
+                else{
+                    if(nums2[i-m]>nums2[j-m])
+                        swap(nums2[i-m],nums2[j-m]);
+                }
+            }
+            if(gap==1)
+                break;
+            gap=(gap/2+gap%2);
+        }
+        for(int i=0;i<n;i++){
+            nums1[i+m]=nums2[i];
+        }
+        return;
+    }
