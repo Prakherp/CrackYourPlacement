@@ -1,0 +1,26 @@
+https://leetcode.com/submissions/detail/1336552850/
+
+string convertToTitle(int n) {
+    if(n<=0)
+        return "";
+    if(n<=26)
+        return string(1,(char)(n+64));
+    
+    int n1=n;
+    string res="";
+    while(n1){
+        //cout<<n1<<endl;
+        if(n1>26){
+            if(n1%26!=0)
+                res+=convertToTitle(n1/26);
+            else 
+                res+=convertToTitle(n1/26-1);
+            n1=n1-(26*(n1/26- (n1%26==0 ? 1:0)));
+        }
+        else{
+            res+=convertToTitle(n1);
+            n1=0;
+        }
+    }
+    return res;
+}
