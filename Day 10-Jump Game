@@ -1,0 +1,14 @@
+https://leetcode.com/submissions/detail/1337617056/
+
+bool canJump(vector<int>& nums) {
+    int n=nums.size();
+    int cap=nums[0];
+    for(int i=1;i<n;i++){
+        if(cap==0)
+            return false;
+        cap--;
+        cap=max(cap,nums[i]);
+
+    }
+    return true;
+}
