@@ -1,0 +1,11 @@
+int findPair(int n, int x, vector<int> &arr) {
+    // code here
+    set<int> st;
+    sort(arr.begin(),arr.end());
+    for(int i=0;i<n;i++){
+        if(st.find(arr[i]-x)!=st.end())
+            return 1;
+        st.insert(arr[i]);
+    }
+    return -1;
+}
