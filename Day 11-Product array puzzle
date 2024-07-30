@@ -1,0 +1,27 @@
+vector<long long int> productExceptSelf(vector<long long int>& nums, int n) {
+   long long int pr=1;
+   int flag=0;
+   for(int i=0;i<n;i++){
+     if(nums[i]!=0)
+        pr*=nums[i];
+    else
+        flag++;
+   }
+    
+    vector<long long int> res;
+    for(int i=0;i<n;i++){
+        if(!flag){
+            res.push_back(pr/nums[i]);
+        }
+        else if(flag && nums[i]==0){
+            if(flag==1)
+                res.push_back(pr);
+            else
+                res.push_back(0);
+        }
+        else
+            res.push_back(0);
+    }
+    return res;
+    //code here        
+}
