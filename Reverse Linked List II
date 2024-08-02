@@ -1,0 +1,45 @@
+ListNode* reverseList(ListNode* head) {
+    ListNode* d=NULL;
+    ListNode* temp=head;
+    while(temp){
+        temp=head->next;
+        head->next=d;
+        d=head;
+        head=temp;
+    }
+    return d;
+}
+ListNode* reverseBetween(ListNode* head, int left, int right) {
+    if(left==right)
+        return head;
+    if(!head)
+        return NULL;
+    int c=0;
+    ListNode* to_reverse,*left_end,*right_end;
+    ListNode* prev=NULL,*temp=head;
+    while(temp){
+        c++;
+        if(c==left){
+            to_reverse=temp;
+            left_end=prev;
+        }
+        if(c==right){
+            right_end=temp->next;
+            temp->next=NULL;
+        }
+        prev=temp;
+        temp=temp->next;
+    }
+    if(left_end){
+        ListNode* temp=reverseList(to_reverse);
+        left_end->next->next=right_end;
+        left_end->next=temp;
+        return head;
+    }
+    else{
+        ListNode* temp=reverseList(to_reverse);
+        to_reverse->next=right_end;
+        return temp;
+    }
+    return NULL;
+}
