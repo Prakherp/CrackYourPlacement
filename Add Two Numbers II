@@ -1,0 +1,41 @@
+ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+    stack<int> st1;
+    ListNode* it=l1;
+    while(it){
+        st1.push(it->val);
+        it=it->next;
+    }
+    it=l2;
+    stack<int> st2;
+    while(it){
+        st2.push(it->val);
+        it=it->next;
+    }
+    int c=0;
+    ListNode* curr=new ListNode(0);
+    while(!st1.empty() || !st2.empty()){
+        int a=0;
+        if(!st1.empty()){
+            a=st1.top();
+            st1.pop();
+        }
+        int b=0;
+        if(!st2.empty()){
+            b=st2.top();
+            st2.pop();
+        }
+        int s=a+b+c;
+        ListNode* t=new ListNode(s%10);
+        t->next=curr->next;
+        curr->next=t;
+        
+        c=s/10;
+    }
+    while(c>0){
+        ListNode* t=new ListNode(c%10);
+        t->next=curr->next;
+        curr->next=t;
+        c/=10;
+    }
+    return curr->next;
+}
