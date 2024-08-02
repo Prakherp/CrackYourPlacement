@@ -1,0 +1,31 @@
+ 
+class Solution {
+private:
+    int dp[501][2001];
+    int func(int i, int rem, vector<int>& nums, int k){
+        if(i==nums.size())
+            return 0;
+        
+        if(dp[i][rem]!=-1)
+            return dp[i][rem];
+        
+        int ans=0;
+        if(nums[i]<=rem){
+            int c1=func(i+1,rem-nums[i]-1,nums,k);
+            int c2=(rem+1)*(rem+1) + func(i+1, k-nums[i]-1, nums,k);
+            ans=min(c1,c2);
+        }
+        else{
+            ans=(rem+1)*(rem+1) + func(i+1, k-nums[i]-1, nums,k);
+        }
+        return dp[i][rem]=ans;
+    }
+public:
+    int solveWordWrap(vector<int>nums, int k) 
+    { 
+        // Code here
+        memset(dp,-1,sizeof(dp));
+        return func(0,k,nums,k);
+       
+    } 
+};
