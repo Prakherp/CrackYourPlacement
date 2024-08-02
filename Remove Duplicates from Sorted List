@@ -1,0 +1,19 @@
+ListNode* deleteDuplicates(ListNode* head) {
+    ListNode* dummy=new ListNode(0);
+    dummy->next=head;
+    ListNode* prev=NULL;
+    ListNode* curr=head;
+    set<int> mpp;
+    while(curr){
+        if(prev!=NULL && mpp.find(curr->val)!=mpp.end()){
+            prev->next=curr->next;
+        }
+        else{
+            prev=curr;
+        }
+
+        mpp.insert(curr->val);
+        curr=curr->next;
+    }
+    return head;
+}
