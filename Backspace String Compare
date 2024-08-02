@@ -1,0 +1,22 @@
+string check(string s){
+    stack<char> st;
+    int n=s.length();
+    for(int i=0;i<n;i++){
+        if(s[i]=='#'){
+            if(!st.empty())
+                st.pop();
+        }
+        else
+            st.push(s[i]);
+    }
+    string res="";
+    while(!st.empty()){
+        res=st.top()+res;
+        st.pop();
+    }
+    return res;
+}
+bool backspaceCompare(string s, string t) {
+    // cout<<check(s)<<"-"<<check(t)<<endl;
+    return check(s)==check(t);
+}
