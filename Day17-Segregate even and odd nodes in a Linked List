@@ -1,0 +1,32 @@
+Node* divide(Node* head) {
+    // code here
+    Node* prev=NULL, *curr=head;
+    while(curr && curr->data%2==0){
+        prev=curr;
+        curr=curr->next;
+    }
+    
+    if(!curr)
+        return head;
+    
+    Node* save=curr;
+    while(curr && curr->next){
+        if(curr->next->data%2==0){
+            Node* temp=curr->next;
+            if(!prev){
+                prev=temp;
+                head=prev;
+            }
+            else{
+                prev->next=temp;
+                prev=prev->next;
+            }
+            prev->next=save;
+            curr->next=curr->next->next;
+        }
+        else
+            curr=curr->next;
+    }
+    
+    return head;
+}
