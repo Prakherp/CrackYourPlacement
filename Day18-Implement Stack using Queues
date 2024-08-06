@@ -1,0 +1,34 @@
+https://leetcode.com/submissions/detail/1346590524/
+
+class MyStack {
+private:
+  queue<int> q;
+public:
+  MyStack() {
+      
+  }
+  
+  void push(int x) {
+      int n=q.size();
+      q.push(x);
+      while(n--){
+          int temp=q.front();
+          q.pop();
+          q.push(temp);
+      }
+  }
+  
+  int pop() {
+      int temp=q.front();
+      q.pop();
+      return temp;
+  }
+  
+  int top() {
+      return q.front();
+  }
+  
+  bool empty() {
+      return q.empty();
+  }
+};
