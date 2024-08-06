@@ -1,0 +1,28 @@
+https://leetcode.com/submissions/detail/1346851364/
+
+class StockSpanner {
+private:
+    stack<pair<int,int>> st;
+    int ind;
+public:
+    StockSpanner() {
+        ind=0;
+    }
+    
+    int next(int price) {
+        int res;
+        if(st.empty())
+            res=ind+1;
+        else{
+            while(!st.empty() && st.top().first<=price)
+                st.pop();
+            if(st.empty())
+                res=ind+1;
+            else
+                res=(ind)-st.top().second;
+        }
+
+        st.push({price,ind++});
+        return res;
+    }
+};
