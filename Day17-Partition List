@@ -1,0 +1,32 @@
+https://leetcode.com/submissions/detail/1345717109/
+
+ListNode* partition(ListNode* head, int x) {
+    ListNode* curr=head, *prev=NULL;
+    while(curr && curr->val<x){
+        prev=curr;
+        curr=curr->next;
+    }
+    if(!curr)
+        return head;
+    
+    ListNode* save=curr;
+
+    while(curr && curr->next){
+        if(curr->next->val<x){
+            if(!prev){
+                prev=new ListNode(curr->next->val);
+                prev->next=save;
+                head=prev;
+            }
+            else{
+                prev->next=new ListNode(curr->next->val);
+                prev=prev->next;
+                prev->next=save;
+            }
+            curr->next=curr->next->next;
+        }
+        else
+            curr=curr->next;
+    }
+    return head;
+}
