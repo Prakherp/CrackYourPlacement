@@ -1,0 +1,19 @@
+https://leetcode.com/submissions/detail/1345700918/
+
+
+bool func(ListNode* &n1, ListNode* n2){
+    if(!n2->next)
+        return n1->val==n2->val;
+    
+    if(!func(n1,n2->next))
+        return false;
+    else{
+        n1=n1->next;
+        //cout<<n1->val<<endl;
+        return n1->val==n2->val;
+    }
+    return true;
+}
+bool isPalindrome(ListNode* head) {
+    return func(head,head);
+}
