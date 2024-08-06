@@ -1,0 +1,14 @@
+void rearrangeEvenOdd(Node *head) {
+    // Your Code here
+    Node* odd=head;
+    if(!head->next) return;
+    Node* even=head->next;
+    Node* pos=even;
+    while(even && even->next){
+        odd->next=even->next;
+        odd=odd->next;
+        even->next=even->next->next;
+        even=even->next;
+        odd->next=pos;
+    }
+}
