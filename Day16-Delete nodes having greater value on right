@@ -1,0 +1,27 @@
+ Node *compute(Node *head)
+    {
+        // your code goes here
+        stack<Node*> st;
+        Node* curr=head;
+        while(curr){
+            while(!st.empty() && st.top()->data<curr->data)
+                st.pop();
+            
+            st.push(curr);
+            curr=curr->next;
+        }
+        
+
+        while(!st.empty()){
+            if(!curr){
+                curr=new Node(st.top()->data);
+            }
+            else{
+                Node* temp=new Node(st.top()->data);
+                temp->next=curr;
+                curr=temp;
+            }
+            st.pop();
+        }
+        return curr;
+    }
