@@ -1,0 +1,34 @@
+https://leetcode.com/submissions/detail/1344478301/
+
+Node* copyRandomList(Node* head) {
+    if(!head)
+        return NULL;
+    Node* dummy=new Node(0);
+    dummy->next=head;
+    Node* temp=head;
+    while(temp){
+        Node* t=new Node(temp->val);
+        t->next=temp->next;
+        temp->next=t;
+        temp=t->next;
+    }
+    temp=dummy->next;
+    while(temp && temp->next){
+        if(temp->random){
+            temp->next->random=temp->random->next;
+        }
+        temp=temp->next->next;
+    }   
+    Node* newHead = head->next;
+temp = head;
+while (temp) {
+    Node* t = temp->next;
+    temp->next = t->next;
+    temp = temp->next;
+    if (temp) {
+        t->next = temp->next;
+    }
+}
+
+return newHead;
+}
