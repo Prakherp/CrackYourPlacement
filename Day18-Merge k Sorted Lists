@@ -1,0 +1,61 @@
+https://leetcode.com/submissions/detail/1346560907/
+
+ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+    if(!list1 && !list2)    return NULL;
+    ListNode* curr;
+    if(list1 && list2){
+        if(list1->val<list2->val){
+            curr=list1;
+            list1=list1->next;
+        }
+        else{
+            curr=list2;
+            list2=list2->next;
+        }
+    }
+    else if(!list1){
+        curr=list2;
+        list2=list2->next;
+    }
+    else{
+        curr=list1;
+        list1=list1->next;
+    }
+
+    ListNode* dummy=new ListNode(0);
+    dummy->next=curr;
+    while(list1 || list2){
+        int a =list1? list1->val: INT_MAX;
+        int b=list2? list2->val: INT_MAX;
+        if(a<b){
+            curr->next=list1;
+            curr=curr->next;
+            list1=list1->next;
+        }
+        else{
+            curr->next=list2;
+            curr=curr->next;
+            list2=list2->next;
+        }
+    }
+    return dummy->next;
+}
+
+ListNode* mergefunc(vector<ListNode*>& lists, int i, int j){
+    if(j<i)
+        return NULL;
+    if(j>(i+1)){
+        int mid=(i+j)/2;
+        ListNode* a=mergefunc(lists,i,mid );
+        ListNode* b=mergefunc(lists,mid+1,j);
+        return mergeTwoLists(a,b);
+    }
+    else if(j==i+1){
+        return mergeTwoLists(lists[i],lists[j]);
+    }
+    else
+        return lists[i];
+}
+ListNode* mergeKLists(vector<ListNode*>& lists) {
+    return mergefunc(lists, 0, lists.size()-1);
+}
