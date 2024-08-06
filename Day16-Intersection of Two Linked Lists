@@ -1,0 +1,27 @@
+https://leetcode.com/submissions/detail/1344560241/
+
+ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+    if(!headA|| !headB)
+        return NULL;
+    
+    unordered_map<ListNode*, bool> mpp;
+    while(headA || headB){
+        if(headA){
+            if(mpp.find(headA)==mpp.end()){
+                mpp[headA]=true;
+                headA=headA->next;
+            }
+            else
+                return headA;
+        }
+        if(headB){
+            if(mpp.find(headB)==mpp.end()){
+                mpp[headB]=true;
+                headB=headB->next;
+            }
+            else
+                return headB;
+        }
+    }
+    return NULL;
+}
