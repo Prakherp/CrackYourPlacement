@@ -1,0 +1,26 @@
+int celebrity(vector<vector<int> >& mat) {
+    // code here
+    stack<int> st;
+    int m=mat.size(),n=mat[0].size();
+    for(int i=0;i<m;i++){
+        bool flag=false;
+        for(int j=0;j<n;j++){
+            if(mat[i][j]==1)
+                flag=true;
+        }
+        if(!flag)   st.push(i);
+    }
+    
+    while(!st.empty()){
+        int t=st.top();
+        st.pop();
+        bool flag=false;
+        for(int i=0;i<m;i++){
+            if(i!=t && mat[i][t]==0){
+                flag=true;
+            }
+        }
+        if(!flag)   return t;
+    }
+    return -1;
+}
