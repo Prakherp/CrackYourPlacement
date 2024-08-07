@@ -1,0 +1,22 @@
+void func(vector<NestedInteger> &arr){
+    int n=arr.size();
+    for(int i=0;i<n;i++){
+        if(arr[i].isInteger())
+            q.push(arr[i].getInteger());
+        else
+            func(arr[i].getList());
+    }
+}
+NestedIterator(vector<NestedInteger> &nestedList) {
+    func(nestedList);
+}
+
+int next() {
+    int temp=q.front();
+    q.pop();
+    return temp;
+}
+
+bool hasNext() {
+    return !q.empty();
+}
