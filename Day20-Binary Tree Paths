@@ -1,0 +1,25 @@
+void func(TreeNode* root, string s,vector<string>& ans ){
+    if(!root){
+        return;
+    }
+    if(!root->left && !root->right){
+        if(s!="")
+            s+="->";
+        s+=to_string(root->val);
+        ans.push_back(s);
+        return;
+    }
+
+    if(s!="")
+        s+="->";
+    s+=to_string(root->val);
+
+    func(root->left,s,ans);
+    func(root->right,s,ans);
+}
+vector<string> binaryTreePaths(TreeNode* root) {
+    if(!root)   return {};
+    vector<string> ans;
+    func(root, "",ans);
+    return ans;
+}
