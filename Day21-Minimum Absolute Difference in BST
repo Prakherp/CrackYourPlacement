@@ -1,0 +1,12 @@
+int m=INT_MAX,cur=-1;
+int getMinimumDifference(TreeNode* root) {
+    if(root->left) getMinimumDifference(root->left);
+    if(cur!=-1)
+        m=min(m,root->val-cur);
+    
+    cur=root->val;
+    if(root->right)
+        getMinimumDifference(root->right);
+    
+    return m;
+}
