@@ -1,0 +1,23 @@
+BSTIterator(TreeNode* root) {
+        TreeNode* cur=root;
+        while(cur){
+            st.push(cur);
+            cur=cur->left;
+        }
+    }
+    
+    int next() {
+        int res=st.top()->val;
+        TreeNode* cur=st.top();
+        st.pop();
+        cur=cur->right;
+       while(cur){
+        st.push(cur);
+        cur=cur->left;
+       }
+        return res;
+    }
+    
+    bool hasNext() {
+        return !st.empty();
+    }
