@@ -1,0 +1,12 @@
+bool hasPathSum(TreeNode* root, int targetSum) {
+        if(!root)   return false;
+        if(root->left==NULL && !root->right){
+            return targetSum==root->val;
+        }
+
+        bool a= hasPathSum(root->left, targetSum-root->val);
+        if(a==true)    return true;
+        bool b= hasPathSum(root->right, targetSum-root->val);
+    
+        return b;
+    }
