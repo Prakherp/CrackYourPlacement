@@ -1,0 +1,14 @@
+bool check(Node* root, int min,int max){
+        if(!root)   return true;
+        if(min>=root->data-1 && max<=root->data+1)
+            return false;
+        if(!check(root->left,min,root->data)) return false;
+        if(!check(root->right,root->data,max) )     return false;
+        return true;
+        
+        
+    }
+    bool isDeadEnd(Node *root)
+    {
+        return !check(root, 0,INT_MAX);
+    }
