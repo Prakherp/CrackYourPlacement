@@ -1,0 +1,16 @@
+bool isleaf(TreeNode* root){
+    return root && !root->left && !root->right;
+}
+int sumOfLeftLeaves(TreeNode* root) {
+    if(!root)   return 0;
+    int s=0;
+    if(root->left && isleaf(root->left))
+        s=root->left->val;
+    
+    if(root->left)
+        s+=sumOfLeftLeaves(root->left);
+    if(root->right)
+        s+=sumOfLeftLeaves(root->right);
+    
+    return s;
+}
