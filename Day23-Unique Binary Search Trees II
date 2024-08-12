@@ -1,0 +1,26 @@
+vector<TreeNode*> func(int i, int j){
+        if(i>j)
+            return {NULL};
+        
+        if(i==j){
+            return {new TreeNode(i)};
+        }
+        vector<TreeNode*> ans;
+        for(int k=i;k<=j;k++){
+            vector<TreeNode*> left=func(i,k-1);
+            vector<TreeNode*> right=func(k+1,j);
+    
+            for(int m=0;m<left.size();m++){
+                for(int n=0;n<right.size();n++){
+                    TreeNode* temp=new TreeNode(k);
+                    temp->left=left[m];
+                    temp->right=right[n];
+                    ans.push_back(temp);
+                }
+            }
+        }
+        return ans;
+    }
+    vector<TreeNode*> generateTrees(int n) {
+        return func(1,n);
+    }
