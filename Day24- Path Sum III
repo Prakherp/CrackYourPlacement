@@ -1,0 +1,16 @@
+int func(TreeNode* root, long int targetSum){
+        if(!root)   return 0;
+        int res=0;
+        if(targetSum == root->val){
+            res+=1;
+        }
+        if(root->left)
+            res+=func(root->left,targetSum-root->val);
+        if(root->right)
+            res+=func(root->right,targetSum-root->val);
+        return res;
+    }
+    int pathSum(TreeNode* root, int targetSum) {
+        if(!root)   return 0;
+        return func(root, targetSum) + pathSum(root->left,targetSum) + pathSum(root->right, targetSum);
+    }
