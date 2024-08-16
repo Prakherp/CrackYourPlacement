@@ -1,0 +1,24 @@
+TreeNode* getTree(vector<int>& preorder,vector<int>& postorder, int i, int j,unordered_map<int,int>& mpp_pre,unordered_map<int,int>& mpp_post){
+    if(i>j) return NULL;
+    TreeNode* temp=new TreeNode(preorder[i]);
+    if(i==j)
+        return temp;
+    
+    int r=postorder[mpp_post[preorder[i]]-1];
+    temp->left=getTree(preorder,postorder,  i+1,mpp_pre[r]-1,mpp_pre,mpp_post );
+    temp->right=getTree(preorder, postorder, mpp_pre[r]+1,j,mpp_pre,mpp_post);
+    return temp;
+}
+TreeNode* constructFromPrePost(vector<int>& preorder, vector<int>& postorder) {
+    unordered_map<int,int> mpp_pre;
+    unordered_map<int,int> mpp_post;
+
+    for(int i=0;i<preorder.size();i++){
+        mpp_pre[preorder[i]]=i;
+        mpp_post[postorder[i]]=i;
+    }
+
+    int i=0, j=preorder.size()-1;
+    return getTree(preorder,postorder, i,j,mpp_pre,mpp_post);
+
+}
