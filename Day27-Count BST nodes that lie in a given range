@@ -1,0 +1,10 @@
+int getCount(Node *root, int l, int h)
+{
+  // your code goes here   
+  if(!root) return 0;
+  int res=0;
+  if(root->data>=l && root->data<=h)  res++;
+  
+  res+=(getCount(root->left,l,h) + getCount(root->right, l,h));
+  return res;
+}
