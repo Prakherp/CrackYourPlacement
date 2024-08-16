@@ -1,0 +1,30 @@
+bool applyBFS(int ind, vector<int> adj[], vector<bool>& vis){
+        queue<pair<int,int>> q;
+        q.push({ind,-1});
+        while(!q.empty()){
+            int temp=q.front().first;
+            int parent=q.front().second;
+            q.pop();
+            for(int i=0;i<adj[temp].size();i++){
+                if(!vis[adj[temp][i]]){
+                    vis[adj[temp][i]]=true;
+                    q.push({adj[temp][i],temp});
+                }
+                else if(parent!=adj[temp][i])
+                    return true;
+            }
+        }
+        return false;
+    }
+    bool isCycle(int V, vector<int> adj[]) {
+        // Code here
+        vector<bool> vis(V,false);
+        for(int i=0;i<V;i++){
+            if(!vis[i]){
+                vis[i]=true;
+                if(applyBFS(i,adj,vis))
+                    return true;
+            }
+        }
+        return false;
+    }
