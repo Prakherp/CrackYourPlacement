@@ -1,0 +1,20 @@
+Node* getTree(int pre[], int i, int j){
+    if(i>j) return NULL;
+    Node* temp=newNode(pre[i]);
+    if(i==j)    return temp;
+    int pos=j+1;
+    for(int k=i+1;k<=j;k++){
+        if(pre[k]>pre[i]){
+            pos=k;
+            break;
+        }
+    }
+    
+    temp->left=getTree(pre,i+1,pos-1);
+     temp->right=getTree(pre,pos,j);
+     return temp;
+}
+Node* Bst(int pre[], int size) {
+    // code here
+    return getTree(pre,0,size-1);
+}
