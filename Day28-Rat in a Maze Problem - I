@@ -1,0 +1,36 @@
+int dx[4]={1,0,-1,0};
+    int dy[4]={0,1,0,-1};
+    string dir[4]={"D","R","U","L"};
+  public:
+    void applyDFS(vector<vector<int>> &mat, int x, int y,vector<vector<bool>> &vis ,string curr,vector<string>& res){
+        int r=mat.size();
+        int c=mat[0].size();
+        if(x==r-1 && y==c-1){
+            res.push_back(curr);
+            return;
+        }
+        for(int i=0;i<4;i++){
+            int nx=x+dx[i];
+            int ny=y+dy[i];
+            if(nx>=0 && nx<r && ny>=0 && ny<c && !vis[nx][ny] && mat[nx][ny]==1){
+                curr+=dir[i];
+                vis[nx][ny]=true;
+                applyDFS(mat,nx,ny,vis,curr,res);
+                vis[nx][ny]=false;
+                curr.pop_back();
+            }
+        }
+            
+    }
+    vector<string> findPath(vector<vector<int>> &mat) {
+        // Your code goes here
+        int r=mat.size();
+        int c=mat[0].size();
+        if(mat[0][0]==0 || mat[r-1][c-1]==0)
+            return {};
+        vector<vector<bool>> vis(r, vector<bool>(c,false));
+        vector<string> res;
+        vis[0][0]=true;
+        applyDFS(mat,0,0,vis,"",res);
+        return res;
+    }
