@@ -1,0 +1,13 @@
+int maxSum(TreeNode* root, int& max_s){
+    if(!root)   return 0;
+
+    int ls=max(maxSum(root->left, max_s),0);
+    int rs=max(maxSum(root->right,max_s),0);
+    max_s=max(max_s,ls+rs+root->val);
+    return root->val+max(ls,rs);
+}
+int maxPathSum(TreeNode* root) {
+    int m=INT_MIN;
+    maxSum(root,m);
+    return m;
+}
