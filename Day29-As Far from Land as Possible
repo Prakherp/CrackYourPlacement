@@ -1,0 +1,50 @@
+ int dx[4]={1,0,-1,0};
+    int dy[4]={0,1,0,-1};
+public:
+    void applyBFS(vector<vector<int>>& grid, int x, int y,vector<vector<int>>& ans ){
+        int r=grid.size();
+        int c=grid[0].size();
+        vector<vector<bool>> vis(r, vector<bool>(c,false));
+        vis[x][y]=true;
+        
+    }
+    int maxDistance(vector<vector<int>>& grid) {
+        int r=grid.size();
+        int c=grid[0].size();
+        vector<vector<int>> ans(r,vector<int>(c,-1));
+        vector<vector<bool>> vis(r, vector<bool>(c,false));
+        queue<pair<int,int>> q;
+        for(int i=0;i<r;i++){
+            for(int j=0;j<c;j++){
+                if(grid[i][j]==1)
+                    q.push({i,j});
+            }
+        }
+       int steps=0;
+        while(!q.empty()){
+            int n=q.size();
+            steps++;
+            while(n--){
+                int a=q.front().first;
+                int b=q.front().second;
+                q.pop();
+                for(int i=0;i<4;i++){
+                    int nx=a+dx[i];
+                    int ny=b+dy[i];
+                    if(nx>=0 && nx<r && ny>=0 && ny<c && !vis[nx][ny] && grid[nx][ny]==0){
+                        ans[nx][ny]=steps;
+                        vis[nx][ny]=true;
+                        q.push({nx,ny});
+                    }
+                }
+            }
+        }
+        int m=INT_MIN;
+        for(int i=0;i<r;i++){
+            for(int j=0;j<c;j++){
+                if(grid[i][j]==0)
+                    m=max(m,ans[i][j]);
+            }
+        }
+        return m==INT_MIN? -1: m;
+    }
