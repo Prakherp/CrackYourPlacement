@@ -1,0 +1,28 @@
+bool applyDFS(int ind, vector<int> adj[], vector<bool>& vis,vector<bool>& pathVis){
+        vis[ind]=true;
+        pathVis[ind]=true;
+        for(int i=0;i<adj[ind].size();i++){
+            int node=adj[ind][i];
+            
+            if(!vis[node]){
+                if(applyDFS(node,adj,vis,pathVis))
+                    return true;
+            }
+            else if(pathVis[node])
+                return true;
+        }
+        pathVis[ind]=false;
+        return false;
+    }
+    bool isCyclic(int V, vector<int> adj[]) {
+        // code here
+        vector<bool> vis(V,false);
+        vector<bool> pathVis(V,false);
+        for(int i=0;i<V;i++){
+            if(!vis[i]){
+                if(applyDFS(i,adj,vis,pathVis))
+                    return true;
+            }
+        }
+        return false;
+    }
