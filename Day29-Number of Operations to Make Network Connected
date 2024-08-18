@@ -1,0 +1,41 @@
+int bfsOfGraph(int ind, vector<vector<int>>& adj,vector<int>& vis) {
+        queue<int> q;
+        q.push(ind);
+        int c=1;
+        vis[0]=true;
+        while(!q.empty()){
+            int temp=q.front();
+            q.pop();
+            
+            for(int i=0;i<adj[temp].size();i++){
+                if(!vis[adj[temp][i]]){
+                    vis[adj[temp][i]]=true;
+                    c++;
+                    q.push(adj[temp][i]);
+                }
+            }
+            
+        }
+        return c;
+    }
+    int makeConnected(int n, vector<vector<int>>& connections) {
+        vector<vector<int>> adj_list(n);
+        int l=connections.size();
+        for(int i=0;i<l;i++){
+            adj_list[connections[i][0]].push_back(connections[i][1]);
+            adj_list[connections[i][1]].push_back(connections[i][0]);
+        }
+
+        int req=0, comp=0;
+        vector<int> vis(n,false);
+        for(int i=0;i<n;i++){
+            if(!vis[i]){
+                comp++;
+                vis[i]=true;
+                req+=(bfsOfGraph(i,adj_list,vis)-1);
+            }
+        }
+
+        int extra=l-req;
+        return extra>=(comp-1)? (comp-1):-1;
+    }
