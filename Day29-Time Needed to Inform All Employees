@@ -1,0 +1,24 @@
+int numOfMinutes(int n, int headID, vector<int>& manager, vector<int>& informTime) {
+        vector<vector<int>> adj(n);
+        for(int i=0;i<n;i++){
+            if(manager[i]!=-1)
+                adj[manager[i]].push_back(i);
+        }
+        if(adj[headID].size()==0){
+            return n==1? 0:-1;
+        }
+        queue<pair<int,int>> q;
+        q.push({headID,0});
+        int time=0;
+        while(!q.empty()){
+            int curr=q.front().first;
+            int timeTaken=q.front().second;
+            q.pop();
+            for(int i=0;i<adj[curr].size();i++){
+                int next=adj[curr][i];
+                q.push({next,timeTaken+informTime[curr]});
+                time=max(time,timeTaken+informTime[curr]);
+            }
+        }
+        return time;
+    }
