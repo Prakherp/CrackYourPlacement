@@ -1,0 +1,39 @@
+bool dfs(vector<vector<int>>& graph,int src,vector<bool>& vis,vector<bool>& path_vis, vector<bool>& check){
+        path_vis[src]=true;
+        for(auto it : graph[src]){
+            if(!vis[it]){
+                vis[it]=true;
+                path_vis[it]=true;
+                if(dfs(graph,it,vis,path_vis,check)){
+                    check[it]=false;
+                    return true;
+                }
+            }
+            else if(path_vis[it]){
+                check[it]=false;
+                return true;
+            }
+        }
+        path_vis[src]=false;
+        check[src]=true;
+        return false;
+    }
+public:
+    vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
+        int n=graph.size();
+        vector<bool> vis(n,false);
+        vector<bool> path_vis(n,false);
+        vector<bool> check(n,false);
+        for(int i=0;i<n;i++){
+            if(!vis[i]){
+                vis[i]=true;
+                dfs(graph, i,vis,path_vis,check);
+            }
+        }
+        vector<int> ans;
+        for(int i=0;i<n;i++){
+            if(check[i])
+                ans.push_back(i);
+        }
+        return ans;
+    }
