@@ -1,0 +1,63 @@
+void dfs(vector<vector<int>>& grid, int x, int y,vector<vector<bool>>& vis) {
+        int r=grid.size();
+        int c=grid[0].size(); 
+        for(int i=0;i<4;i++){
+            int ni=x+dx[i];
+            int nj=y+dy[i];
+            if(ni>=0 && ni<r && nj>=0 && nj<c && !vis[ni][nj] && grid[ni][nj]==1){
+                vis[ni][nj]=true;
+                dfs(grid,ni,nj,vis);
+            }
+        }
+    }
+    int shortestBridge(vector<vector<int>>& grid) {
+        int r=grid.size();
+        int c=grid[0].size();
+        vector<vector<bool>> vis(r, vector<bool>(c,false));
+        queue<pair<int,int>> q;
+        bool flag=false;
+        for(int i=0;i<r;i++){
+            for(int j=0;j<c;j++){
+                if(grid[i][j]==1){
+                    vis[i][j]=true;
+                    flag=true;
+                    dfs(grid, i, j,vis);
+                    break;
+                }
+            }
+            if(flag)
+                break;
+        }
+
+        for(int i=0;i<r;i++){
+            for(int j=0;j<c;j++){
+                if(vis[i][j])
+                    q.push({i,j});
+            }
+        }
+        int steps=0;
+        while(!q.empty()){
+            int n=q.size();
+            while(n--){
+                int x=q.front().first;
+                int y=q.front().second;
+                q.pop();
+                for(int i=0;i<4;i++){
+                    int nx=x+dx[i];
+                    int ny=y+dy[i];
+                    if(nx>=0 && nx<r && ny>=0 && ny<c && !vis[nx][ny]){
+                        if(grid[nx][ny]==1){
+                            return steps;
+                        }
+                        else{
+                            vis[nx][ny]=true;
+                            q.push({nx,ny});
+                        }
+                    }
+                }
+            }
+            steps++;
+        }
+
+        return -1;
+    }
