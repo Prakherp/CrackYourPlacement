@@ -1,0 +1,14 @@
+vector<string> fullJustify(vector<string>& words, int maxWidth) {
+        int n=words.length();
+        int ind=0;
+        while(ind<n){
+            int cnt=0, l=0;
+            while(ind<n && l+words[ind].length()<maxWidth){
+                l+=(words[ind].length()+1);
+                cnt++;
+                ind++;
+            }
+            l-=1;
+            int sp=(maxWidth-l)%(cnt-1);
+        }
+    }
