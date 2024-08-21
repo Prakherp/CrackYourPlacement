@@ -1,0 +1,18 @@
+ void func(int ind, vector<int>& nums, vector<int> curr, set<vector<int>>& st){
+        if(ind==nums.size()){
+            st.insert(curr);
+            return;
+        }
+        
+        curr.push_back(nums[ind]);
+        func(ind+1,nums,curr,st);
+        curr.pop_back();
+        func(ind+1, nums, curr, st);
+    }
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        set<vector<int>> st;
+        func(0,nums, {}, st);
+        vector<vector<int>> ans(st.begin(),st.end());
+        return ans;
+    }
