@@ -1,0 +1,56 @@
+class Solution {
+    string words[20]={"Zero","One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Eleven","Twelve","Thirteen","Fourteen","Fifteen","Sixteen","Seventeen","Eighteen","Nineteen"};
+    string tens[8]={"Twenty","Thirty","Forty","Fifty","Sixty","Seventy","Eighty","Ninety"};
+public:
+    string twoDigitNum(int n){
+        if(n>=0 && n<20)
+            return words[n];
+        
+        if(n%10==0){
+            return tens[n/10 - 2];
+        }
+
+        return tens[n/10 - 2] + " " + words[n%10];
+    }
+    string threeDigitNum(int n){
+        if(n>=100){
+            return words[n/100] +" Hundred" + (n%100==0? "":(" "+twoDigitNum(n%100)));
+        }
+        else{
+            return twoDigitNum(n);
+        }
+    }
+    string numberToWords(int num) {
+        if(num==0)  return words[num];
+        int p=3;
+        int temp=num%(int)pow(10,p);
+        string res="";
+        if(temp){
+            res=threeDigitNum(temp);
+        }
+
+        int n1=num;
+        n1/=1000;
+        if(n1){
+            temp=n1%(int)pow(10,p);
+            if(temp)
+                res=threeDigitNum(temp)+" Thousand"+(num%1000 ? (" "+res):"");
+        }
+
+        n1/=1000;
+        if(n1){
+            temp=n1%(int)pow(10,p);
+            if(temp)
+                res=threeDigitNum(temp)+" Million"+(num%(int)pow(10,6) ? (" "+res):"") ;
+        }
+
+        n1/=1000;
+        if(n1){
+            temp=n1%(int)pow(10,p);
+            if(temp)
+                res=threeDigitNum(temp)+" Billion"+(num%(int)pow(10,9) ? (" "+res):"") ;;
+        }
+
+        return res;
+    }
+};
