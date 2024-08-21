@@ -1,0 +1,52 @@
+int dx[8]={1,1,-1,-1,2,2,-2,-2};
+    int dy[8]={-2,2, 2,-2,1,-1,1,-1};
+    int mod=(int)1e9+7;
+public:
+    int knightDialer(int jump, int x,int y, int n){
+        if(jump==n-1)
+            return 1;
+        int res=0;
+        for(int i=0;i<8;i++){
+            int nx=x+dx[i];
+            int ny=y+dy[i];
+            if(nx>=0 && nx<4 && ny>=0 && ny<3 && !((nx==3 && ny==0) || (nx==3 && ny==2)) ){
+                res+=knightDialer(jump+1, nx,ny,n);
+            }
+        }
+        return res;
+    }
+    int knightDialer(int n) {
+
+        vector<vector<vector<int>>> dp(n,vector<vector<int>>(4, vector<int>(3,-1)));
+        for(int i=0;i<4;i++){
+            for(int j=0;j<3;j++)
+                dp[n-1][i][j]=1;
+        }
+
+        int res=0;
+        for(int jump=n-2;jump>=0;jump--){
+        for(int i=0;i<4;i++){
+            for(int j=0;j<3;j++){
+                if(i==3 && (j==0 || j==2))
+                    continue;
+                dp[jump][i][j]=0;
+                for(int k=0;k<8;k++){
+                    int nx=i+dx[k];
+                    int ny=j+dy[k];
+                    if(nx>=0 && nx<4 && ny>=0 && ny<3 && !((nx==3 && ny==0) || (nx==3 && ny==2)) ){
+                        dp[jump][i][j]=(dp[jump][i][j]+ dp[jump+1][nx][ny])%mod;
+                    }
+                }
+            }
+        }
+        }
+
+         for(int i=0;i<4;i++){
+            for(int j=0;j<3;j++){
+                if(i==3 && (j==0 || j==2))
+                    continue;
+                res=(res+dp[0][i][j])%mod;
+            }
+        }
+        return res;
+    }
