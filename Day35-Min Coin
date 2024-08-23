@@ -1,0 +1,15 @@
+int MinCoin(vector<int>nums, int amount)
+	{
+	    // Code here
+	    vector<int> dp(amount+1,1e6);
+	    int n=nums.size();
+	    dp[0]=0;
+	    for(int i=1;i<=amount;i++){
+	        for(int j=0;j<n;j++){
+	            if(nums[j]<=i)
+	                dp[i]=min(dp[i],1+dp[i-nums[j]]);
+	            //cout<<dp[i]<<endl;
+	        }
+	    }
+	    return dp[amount]>amount? -1:dp[amount];
+	}
