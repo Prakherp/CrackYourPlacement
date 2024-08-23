@@ -1,0 +1,23 @@
+ int deleteAndEarn(vector<int>& nums) {
+       map<int,int> mpp;
+       int n=nums.size(), m= INT_MIN;
+       for(int i=0;i<n;i++){
+        mpp[nums[i]]++;
+        m=max(m,nums[i]);
+       } 
+
+       vector<pair<int,int>> arr(m);
+       for(int i=0;i<m;i++){
+        arr[i]={i+1,mpp[i+1]};
+       }
+       int sz=arr.size();
+       if(sz==1)
+        return arr[0].first*arr[0].second;
+       vector<int> dp(sz,0);
+       dp[0]=(arr[0].first*arr[0].second);
+       dp[1]=max(dp[0],arr[1].first*arr[1].second);
+       for(int i=2;i<sz;i++){
+            dp[i]=max(arr[i].first*arr[i].second+dp[i-2], dp[i-1]);
+       }
+       return dp[sz-1];
+    }
