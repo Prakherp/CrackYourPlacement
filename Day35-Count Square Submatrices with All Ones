@@ -1,0 +1,47 @@
+int countSquares(vector<vector<int>>& matrix) {
+        int r= matrix.size();
+        int c=matrix[0].size();
+        vector<vector<int>> pre_sum(r,vector<int>(c,0));
+        for(int i=0;i<r;i++){
+            for(int j=0;j<c;j++){
+                pre_sum[i][j]=matrix[i][j];
+                if(i-1>=0)
+                    pre_sum[i][j]+=pre_sum[i-1][j];
+                
+                if(j-1>=0)
+                    pre_sum[i][j]+=pre_sum[i][j-1];
+                
+                if(i-1>=0 && j-1>=0)
+                    pre_sum[i][j]-=pre_sum[i-1][j-1];
+                
+                //cout<<pre_sum[i][j]<<" ";
+            }
+            //cout<<endl;
+        }
+        int res=0;
+        //vector<vector<int>> ans(r,vector<int>(c,0));
+        for(int i=0;i<r;i++){
+            for(int j=0;j<c;j++){
+                int ni=i,nj=j;
+                while(ni>=0 && nj>=0){
+                    int temp=pre_sum[i][j];
+                    if(nj-1>=0){
+                        temp-=pre_sum[i][nj-1];
+                    }
+                    if(ni-1>=0)
+                        temp-=pre_sum[ni-1][j];
+                    
+                    if(nj-1>=0 && ni-1>=0)
+                        temp+=pre_sum[ni-1][nj-1];
+                    
+                    if(temp==(i-ni+1)*(j-nj+1))
+                        res++;
+                    
+                    ni--;
+                    nj--;
+                }
+            }
+        }
+
+        return res;
+    }
