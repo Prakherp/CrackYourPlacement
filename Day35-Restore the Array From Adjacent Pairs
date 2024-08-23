@@ -1,0 +1,30 @@
+vector<int> restoreArray(vector<vector<int>>& adjacentPairs) {
+        map<int,vector<int>> mpp;
+        int n=adjacentPairs.size();
+        for(int i=0;i<n;i++){
+            mpp[adjacentPairs[i][0]].push_back(adjacentPairs[i][1]);
+            mpp[adjacentPairs[i][1]].push_back(adjacentPairs[i][0]);
+        }
+        vector<int> ans;
+        for(auto it: mpp){
+            if(it.second.size()==1){
+                queue<int> q;
+                q.push(it.first);
+                unordered_map<int, bool> vis;
+                vis[it.first]=true;
+                while(!q.empty()){
+                    int curr=q.front();
+                    ans.push_back(curr);
+                    q.pop();
+                    for(int i=0;i<mpp[curr].size();i++){
+                        if(!vis[mpp[curr][i]]){
+                            vis[mpp[curr][i]]=true;
+                            q.push(mpp[curr][i]);
+                        }
+                    }
+                }
+                break;
+            }
+        }
+        return ans;
+    }
