@@ -1,0 +1,26 @@
+static bool cmp(Job a, Job b){
+       if(a.profit==b.profit)
+            return a.dead>b.dead;
+        return a.profit>b.profit;
+    }
+    vector<int> JobScheduling(Job arr[], int n) 
+    { 
+        // your code here
+        sort(arr,arr+n, cmp);
+        int curr_profit=0,curr_cnt=0,m=INT_MIN;
+        for(int i=0;i<n;i++)
+            m=max(m,arr[i].dead);
+        vector<int> ans(m,-1);
+        for(int i=0;i<n;i++){
+            int pos=arr[i].dead-1;
+            while(pos>=0 && ans[pos]!=-1){
+                pos--;
+            }
+            if(pos>=0){
+                curr_cnt++;
+                curr_profit+=arr[i].profit;
+                ans[pos]=arr[i].dead;
+            }
+        }
+        return {curr_cnt,curr_profit};
+    } 
